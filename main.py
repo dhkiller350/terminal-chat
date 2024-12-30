@@ -24,7 +24,7 @@ def start_server(host="0.0.0.0", port=12345):
         server.listen(5)
         print(f"Server started on {host}:{port}. Waiting for connections...\n")
     except OSError as e:
-        print(f"Error: {e}. Try using a different IP or port.")
+        print(f"Error: {e}. Ensure IP and port are valid and not in use.")
         return
 
     clients = {}
@@ -37,11 +37,11 @@ def start_server(host="0.0.0.0", port=12345):
             print(f"{username} joined from {addr}")
 
             while True:
-                message = client_socket.recv(1024).decode("utf-8")[:512]  # Limit message to 512 characters
+                message = client_socket.recv(1024).decode("utf-8")[:512]
                 if message:
                     print(f"[{username}]: {message}")
                     broadcast(f"[{username}]: {message}", client_socket)
-        except:
+        except Exception:
             username = clients.pop(client_socket, "Unknown")
             print(f"{username} disconnected.")
             broadcast(f"Server: {username} has left the chat.")
@@ -79,7 +79,7 @@ def start_client(server_ip="127.0.0.1", port=12345, username="Anonymous"):
     client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     try:
         client.connect((server_ip, port))
-        client.send(username.encode("utf-8"))  # Send the username to the server
+        client.send(username.encode("utf-8"))
         print("Connected to the server. Type your messages below:\n")
     except Exception as e:
         print(f"Unable to connect to the server: {e}")
@@ -111,7 +111,7 @@ if __name__ == "__main__":
     matrix_effect()
     os.system("clear" if os.name == "posix" else "cls")
 
-    print("Welcome to the Hacker Terminal!")
+    print("Welcome to the Multi-Platform Chat Terminal!")
     print("1. Start Server")
     print("2. Connect to Server")
     choice = input("Choose an option: ")
