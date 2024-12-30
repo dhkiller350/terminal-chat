@@ -13,3 +13,7 @@ cd to it
 #run it
 
 3.python3 main.py
+
+
+
+MORE DEBUGGING AND CODING IS BEING NEEDED PLEASE HOLD ON UNTIL I WORK ON IT
